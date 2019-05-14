@@ -71,3 +71,20 @@ Restful API that connects to Cosmos Sql API
         ]
     }
 
+Update:
+@Override
+	public List<Item> findItems(Integer itemId, String name) {
+		List<Object> itemIdValues = new ArrayList<Object>();
+		itemIdValues.add(itemId);
+		List<Object> nameIdValues = new ArrayList<Object>();
+		nameIdValues.add(name);
+		
+		Criteria criteriaItemId = Criteria.getInstance(CriteriaType.IS_EQUAL, "itemId", itemIdValues);
+		Criteria criteriaName = Criteria.getInstance(CriteriaType.IS_EQUAL, "name", nameIdValues);
+		
+		Criteria criteriaAnd = Criteria.getInstance(CriteriaType.AND, criteriaItemId, criteriaName);
+		DocumentQuery query = new DocumentQuery(criteriaAnd);
+		
+		List<Item> items = documentDbTemplate.find(query, Item.class, "Items");
+		return items;
+	}
