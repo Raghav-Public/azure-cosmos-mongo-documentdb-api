@@ -71,6 +71,7 @@ Restful API that connects to Cosmos Sql API
         ]
     }
 
+```java
 Update:
 @Override
 	public List<Item> findItems(Integer itemId, String name) {
@@ -88,3 +89,4 @@ Update:
 		List<Item> items = documentDbTemplate.find(query, Item.class, "Items");
 		return items;
 	}
+```
