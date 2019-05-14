@@ -14,7 +14,7 @@ import com.microsoft.cosmos.model.Item;
 import com.microsoft.cosmos.service.ItemsService;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/v1")
 public class ItemsController {
 	
 	private ItemsService itemsService;
@@ -24,16 +24,17 @@ public class ItemsController {
 		this.itemsService = itemsService;
 	}
 	
-	@GetMapping("/v1/") 
+	@GetMapping("/items/") 
 	List<Item> getItems() {
 		return itemsService.getAllItems();
 	}
-	@GetMapping("/v1/{id}") 
+	@GetMapping("/items/{id}") 
 	Item getItems(@PathVariable(value = "id") Integer id) {
 		return itemsService.getItemById(id);
 	}
-	@PostMapping(path = "/v1/", consumes = "application/json")
+	@PostMapping(path = "/items/", consumes = "application/json")
 	void setItems(@RequestBody Item item) {
 		itemsService.saveItem(item);
 	}
+	@GetMapping("/v1/")
 }
