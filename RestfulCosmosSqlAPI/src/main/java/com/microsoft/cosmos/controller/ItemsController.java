@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microsoft.cosmos.model.Item;
@@ -36,5 +37,9 @@ public class ItemsController {
 	void setItems(@RequestBody Item item) {
 		itemsService.saveItem(item);
 	}
-	@GetMapping("/v1/")
+	@GetMapping("/items")
+	public List<Item> find(@RequestParam(value = "itemId") Integer itemId,
+			@RequestParam(value = "name") String name) {
+		return itemsService.findItem(itemId, name);
+	}
 }

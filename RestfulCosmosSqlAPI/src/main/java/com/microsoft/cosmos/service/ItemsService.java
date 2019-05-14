@@ -7,4 +7,5 @@ public interface ItemsService {
 	List<Item> getAllItems();
 	Item getItemById(Integer id);
 	void saveItem(Item item);
+	List<Item> findItem(Integer itemId, String name);
 }

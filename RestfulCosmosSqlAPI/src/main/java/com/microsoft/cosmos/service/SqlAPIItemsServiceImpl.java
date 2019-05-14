@@ -32,4 +32,9 @@ public class SqlAPIItemsServiceImpl implements ItemsService {
 	public void saveItem(Item item) {
 		this.sqlAPIDAOImpl.setItem(item);
 	}
+	
+	@Override
+	public List<Item> findItem(Integer itemId, String name) {
+		return this.sqlAPIDAOImpl.findItems(itemId, name);
+	}
 }
