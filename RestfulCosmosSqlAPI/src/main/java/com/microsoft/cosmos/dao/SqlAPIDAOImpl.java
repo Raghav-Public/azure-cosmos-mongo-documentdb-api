@@ -13,6 +13,7 @@ import com.microsoft.azure.spring.data.cosmosdb.core.query.Criteria;
 import com.microsoft.azure.spring.data.cosmosdb.core.query.CriteriaType;
 import com.microsoft.azure.spring.data.cosmosdb.core.query.DocumentQuery;
 import com.microsoft.cosmos.model.Item;
+import com.microsoft.cosmos.model.ItemKey;
 
 @Repository
 public class SqlAPIDAOImpl implements ItemsDAO {
@@ -71,7 +72,8 @@ public class SqlAPIDAOImpl implements ItemsDAO {
 
 	@Override
 	public void setItem(Item item) {
-		documentDbTemplate.insert("Items", item, new PartitionKey("itemId"));
+		item.setItemKey();
+		documentDbTemplate.insert("Items", item, new PartitionKey(item.getItemKey()));
 	}
 	
 	@Override
