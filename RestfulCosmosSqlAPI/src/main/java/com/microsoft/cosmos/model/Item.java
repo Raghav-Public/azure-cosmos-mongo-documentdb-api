@@ -2,6 +2,8 @@ package com.microsoft.cosmos.model;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 import com.microsoft.azure.spring.data.cosmosdb.core.mapping.Document;
 
 
@@ -10,12 +12,19 @@ import com.microsoft.azure.spring.data.cosmosdb.core.mapping.Document;
 
 @Document(collection = "Items")
 public class Item {
-	private String id;
+	@Id
+	private String itemKey;
 	private Integer itemId;
 	private String name;
 	private ItemDetail itemDetail;
 	private List<ItemPart> parts;
 	
+	public String getItemKey() {
+		return this.itemKey;
+	}
+	public void setItemKey() {
+		this.itemKey = this.itemId + this.name;
+	}
 	public Integer getItemId() {
 		return this.itemId;
 	}
