@@ -1,8 +1,10 @@
 package com.microsoft.cosmos.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +39,24 @@ public class ItemsController {
 	void setItems(@RequestBody Item item) {
 		itemsService.saveItem(item);
 	}
+	//bad logic but you know 
 	@GetMapping("/items")
-	public List<Item> find(@RequestParam(value = "itemId") Integer itemId,
-			@RequestParam(value = "name") String name) {
-		return itemsService.findItem(itemId, name);
+	public List<Item> find(
+			@RequestParam(value = "itemId", required = false, defaultValue = "0") Integer itemId,
+			@RequestParam(value = "name", required = false, defaultValue = "") String name,
+			@RequestParam(value = "sku", required = false, defaultValue = "") String sku,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+			) {
+		if(startDate != null && endDate != null) {
+			return itemsService.findItem(startDate, endDate);
+		}
+		else if(!sku.isBlank() && !name.isBlank() && itemId > 0) {
+			return itemsService.findItem(itemId, name, sku);
+		}
+		else if(!name.isBlank() && itemId > 0) {
+			return itemsService.findItem(itemId, name);
+		}
+		return null;
 	}
 }
