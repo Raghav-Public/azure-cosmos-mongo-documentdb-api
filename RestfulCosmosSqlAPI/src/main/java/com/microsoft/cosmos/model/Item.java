@@ -1,9 +1,11 @@
 package com.microsoft.cosmos.model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.microsoft.azure.spring.data.cosmosdb.core.mapping.Document;
 
 
@@ -16,7 +18,10 @@ public class Item {
 	private String itemKey;
 	private Integer itemId;
 	private String name;
+	private String sku;
 	private ItemDetail itemDetail;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date manufacturedOn;
 	private List<ItemPart> parts;
 	
 	public String getItemKey() {
@@ -41,12 +46,28 @@ public class Item {
 		this.name = name;
 	}
 	
+	public String getSku() {
+		return this.sku;
+	}
+	
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+	
 	public ItemDetail getItemDetail() {
 		return this.itemDetail;
 	}
 	
 	public void setItemDetail(ItemDetail itemDetail) {
 		this.itemDetail = itemDetail;
+	}
+	
+	public Date getmanufacturedOn() {
+		return this.manufacturedOn;
+	}
+	
+	public void setManufacturedOn(Date manufacturedOn) {
+		this.manufacturedOn = manufacturedOn;
 	}
 	
 	public List<ItemPart> getParts() {
