@@ -1,5 +1,6 @@
 package com.microsoft.cosmos.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,16 @@ public class SqlAPIItemsServiceImpl implements ItemsService {
 	public List<Item> findItem(Integer itemId, String name) {
 		return this.sqlAPIDAOImpl.findItems(itemId, name);
 	}
+	
+	@Override
+	public List<Item> findItem(Integer itemId, String name, String sku) {
+		return this.sqlAPIDAOImpl.findItems(itemId, name, sku);
+	}
+	
+	@Override
+	public List<Item> findItem(Date startDate, Date endDate) {
+		return this.sqlAPIDAOImpl.findItems(startDate, endDate);
+	}
+	
+	
 }
